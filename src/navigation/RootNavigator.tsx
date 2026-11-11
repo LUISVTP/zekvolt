@@ -3,11 +3,11 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { SafeAreaView, StatusBar } from 'react-native';
+import { Alert, SafeAreaView, StatusBar } from 'react-native';
 import { useTheme } from '@/styles/theme';
 import { getSession, onAuthChange, signOut } from '@/services/auth.service';
 import { getProfile } from '@/services/profile.service';
-import { getAppliances } from '@/services/appliance.service';
+import { addAppliance, getAppliances, removeAppliance } from '@/services/appliance.service';
 import type { Profile, Appliance, Session } from '@/types';
 import AuthNavigator from './AuthNavigator';
 import MainTabNavigator from './MainTabNavigator';
@@ -99,11 +99,21 @@ function RootNavigatorInner() {
 
   const handleAddAppliance = useCallback(async (applianceData: { name: string; hours: number; qty: number }) => {
     if (!session?.user.id) return;
+    const { error } = await addAppliance(session.user.id, applianceData);
+    if (error) {
+      Alert.alert('No se pudo agregar', error.message);
+      return;
+    }
     await loadUserData(session.user.id);
   }, [session, loadUserData]);
 
   const handleRemoveAppliance = useCallback(async (applianceId: string) => {
     if (!session?.user.id) return;
+    const { error } = await removeAppliance(applianceId);
+    if (error) {
+      Alert.alert('No se pudo eliminar', error.message);
+      return;
+    }
     await loadUserData(session.user.id);
   }, [session, loadUserData]);
 

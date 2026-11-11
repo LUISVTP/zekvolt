@@ -382,13 +382,13 @@ export const AddApplianceModal = ({
               paddingHorizontal: 14,
             }}
           >
-            <Input
-              type="numeric"
+            <TextInput
               value={manualWatts}
-              onChange={handleWattsChange}
+              onChangeText={handleWattsChange}
               placeholder="Ej: 150"
-              inputStyle={{ flex: 1, color: theme.text, fontSize: 15, paddingVertical: 14 }}
-              style={{ borderWidth: 0, backgroundColor: 'transparent', paddingHorizontal: 0 }}
+              placeholderTextColor={theme.textSub}
+              keyboardType="numeric"
+              style={{ flex: 1, color: theme.text, fontSize: 15, paddingVertical: 14 }}
             />
             <Text style={{ color: theme.textMuted, fontSize: 13 }}>W</Text>
           </View>

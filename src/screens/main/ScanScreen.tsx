@@ -2,7 +2,7 @@
 // Pantalla de escaneo IA (Escanear tab)
 
 import React, { useState, useCallback } from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { useTheme } from '@/styles/theme';
 import { CameraView, VisionResult } from '@/components/camera';
 import { Button, Input } from '@/components/ui';
@@ -398,13 +398,13 @@ const ManualForm = ({
               paddingHorizontal: 14,
             }}
           >
-            <Input
-              type="numeric"
+            <TextInput
               value={manualWatts}
-              onChange={onWattsChange}
+              onChangeText={onWattsChange}
               placeholder="Ej: 150"
-              inputStyle={{ flex: 1, color: theme.text, fontSize: 15, paddingVertical: 14 }}
-              style={{ borderWidth: 0, backgroundColor: 'transparent', paddingHorizontal: 0 }}
+              placeholderTextColor={theme.textSub}
+              keyboardType="numeric"
+              style={{ flex: 1, color: theme.text, fontSize: 15, paddingVertical: 14 }}
             />
             <Text style={{ color: theme.textMuted, fontSize: 13 }}>W</Text>
           </View>
