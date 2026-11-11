@@ -98,13 +98,14 @@ function RootNavigatorInner() {
   }, []);
 
   const handleAddAppliance = useCallback(async (applianceData: { name: string; hours: number; qty: number }) => {
-    if (!session?.user.id) return;
+    if (!session?.user.id) return false;
     const { error } = await addAppliance(session.user.id, applianceData);
     if (error) {
       Alert.alert('No se pudo agregar', error.message);
-      return;
+      return false;
     }
     await loadUserData(session.user.id);
+    return true;
   }, [session, loadUserData]);
 
   const handleRemoveAppliance = useCallback(async (applianceId: string) => {

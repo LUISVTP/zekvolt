@@ -25,7 +25,7 @@ import type { WattValidationResult } from '@/types';
 interface AddApplianceModalProps {
   visible: boolean;
   onClose: () => void;
-  onAdd: (data: { name: string; hours: number; qty: number }) => Promise<void>;
+  onAdd: (data: { name: string; hours: number; qty: number }) => Promise<boolean>;
   tariff: number;
   onModelSearch?: (modelText: string) => Promise<{
     name: string | null;
@@ -177,7 +177,7 @@ export const AddApplianceModal = ({
               backgroundColor: theme.surface,
               borderTopLeftRadius: 20,
               borderTopRightRadius: 20,
-              maxHeight: '85%',
+              height: '90%',
               paddingBottom: 30,
             },
             style,
@@ -188,7 +188,7 @@ export const AddApplianceModal = ({
           </View>
 
           <ScrollView
-            contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 20 }}
+            contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 60 }}
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >

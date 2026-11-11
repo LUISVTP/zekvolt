@@ -20,7 +20,7 @@ interface ScanScreenProps {
     estrato: number;
     company: string;
   };
-  onAddAppliance: (data: { name: string; hours: number; qty: number }) => Promise<void>;
+  onAddAppliance: (data: { name: string; hours: number; qty: number }) => Promise<boolean>;
 }
 
 type CameraStep = 'idle' | 'result' | 'manual';
@@ -116,8 +116,10 @@ export default function ScanScreen({ profile, onAddAppliance }: ScanScreenProps)
 
     setSaving(true);
     try {
-      await onAddAppliance(applianceData);
-      resetCamera();
+      const saved = await onAddAppliance(applianceData);
+      if (saved) {
+        Alert.alert('Guardado', applianceData.name + ' se agregó a tus electrodomésticos.', [{ text: 'OK', onPress: resetCamera }], { cancelable: false });
+      }
     } catch (error) {
       Alert.alert('Error', 'No se pudo guardar el electrodoméstico');
     } finally {
@@ -136,13 +138,20 @@ export default function ScanScreen({ profile, onAddAppliance }: ScanScreenProps)
 
     setSaving(true);
     try {
-      await onAddAppliance(applianceData);
-      resetCamera();
-      setManualName('');
-      setManualWatts('');
-      setManualHours('');
-      setManualQty('1');
-      setWattWarning(null);
+      const saved = await onAddAppliance(applianceData);
+      if (saved) {
+        Alert.alert('Guardado', applianceData.name + ' se agregó a tus electrodomésticos.', [{
+          text: 'OK',
+          onPress: () => {
+            resetCamera();
+            setManualName('');
+            setManualWatts('');
+            setManualHours('');
+            setManualQty('1');
+            setWattWarning(null);
+          },
+        }], { cancelable: false });
+      }
     } catch (error) {
       Alert.alert('Error', 'No se pudo guardar el electrodoméstico');
     } finally {

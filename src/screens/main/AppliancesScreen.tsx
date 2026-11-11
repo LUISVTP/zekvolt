@@ -21,7 +21,7 @@ interface AppliancesScreenProps {
     company: string;
   };
   appliances: any[];
-  onAddAppliance: (data: { name: string; hours: number; qty: number }) => Promise<void>;
+  onAddAppliance: (data: { name: string; hours: number; qty: number }) => Promise<boolean>;
   onRemoveAppliance: (id: string) => Promise<void>;
 }
 

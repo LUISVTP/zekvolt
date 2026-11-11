@@ -26,7 +26,7 @@ interface MainTabNavigatorProps {
   userEmail: string;
   profile: any;
   appliances: any[];
-  onAddAppliance: (data: { name: string; hours: number; qty: number }) => Promise<void>;
+  onAddAppliance: (data: { name: string; hours: number; qty: number }) => Promise<boolean>;
   onRemoveAppliance: (id: string) => Promise<void>;
   onLogout: () => void;
   onUpdateProfile: (profile: any) => void;
