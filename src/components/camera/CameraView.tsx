@@ -20,6 +20,8 @@ interface CameraViewProps {
   style?: StyleProp<ViewStyle>;
   showFullscreen: boolean;
   isRescan?: boolean;
+  onRetake: () => void;
+  error?: string | null;
 }
 
 export const CameraView = ({
@@ -34,6 +36,8 @@ export const CameraView = ({
   style,
   showFullscreen,
   isRescan,
+  onRetake,
+  error,
 }: CameraViewProps) => {
   const { theme } = useTheme();
   const [permission, requestPermission] = useCameraPermissions();
@@ -127,7 +131,7 @@ export const CameraView = ({
             }}
             facing="back"
           >
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: theme.bg }}>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent' }}>
               <View
                 style={{
                   width: '80%',
@@ -149,7 +153,7 @@ export const CameraView = ({
           <View style={{ flexDirection: 'row', gap: 12 }}>
             <Button
               variant="ghost"
-              onPress={() => onTakePicture()}
+              onPress={onRetake}
               style={{ flex: 1 }}
             >
               <Icon name="x" size={18} color={theme.cyan} />
@@ -184,6 +188,10 @@ export const CameraView = ({
               <Text style={{ color: theme.cyan, fontSize: 15, fontWeight: '700' }}>Galería</Text>
             </Button>
           </View>
+        )}
+
+        {error && (
+          <Text style={{ color: theme.red, fontSize: 13, textAlign: 'center' }}>{error}</Text>
         )}
 
         <Text

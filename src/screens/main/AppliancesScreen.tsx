@@ -68,7 +68,7 @@ export default function AppliancesScreen({
             <Text style={{ fontSize: 22, fontWeight: '700', color: theme.text }}>Electrodomésticos</Text>
             <Text style={{ fontSize: 13, color: theme.textMuted }}>{appliances.length} registrados</Text>
           </View>
-          <Button onPress={() => setShowAddModal(true)} style={{ paddingVertical: 10, paddingHorizontal: 16 }}>
+          <Button onPress={() => setShowAddModal(true)} fullWidth={false} style={{ paddingVertical: 10, paddingHorizontal: 16 }}>
             <Icon name="plus" size={16} color={theme.bg} />
             <Text style={{ color: theme.bg, fontWeight: '700', fontSize: 13 }}>Agregar</Text>
           </Button>

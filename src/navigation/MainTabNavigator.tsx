@@ -44,10 +44,19 @@ export function MainTabNavigator({
 }: MainTabNavigatorProps) {
   const { theme, dark: darkMode } = useTheme();
 
+  const tabLabels: Record<keyof MainTabParamList, string> = {
+    Home: 'Inicio',
+    Appliances: 'Aparatos',
+    Scan: 'Escanear',
+    Meter: 'Medidor',
+    Settings: 'Ajustes',
+  };
+
   return (
     <MainTab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
+        tabBarLabel: tabLabels[route.name],
         tabBarActiveTintColor: theme.cyan,
         tabBarInactiveTintColor: theme.textMuted,
         tabBarStyle: {

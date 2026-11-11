@@ -280,6 +280,8 @@ export default function ScanScreen({ profile, onAddAppliance }: ScanScreenProps)
       onTakePicture={takePicture}
       onGalleryPress={pickFromGallery}
       onAnalyzePress={analyzeImage}
+      onRetake={() => setCapturedImage(null)}
+      error={visionError}
       onClose={goBackCamera}
       capturedImage={capturedImage}
       analyzing={analyzing}

@@ -268,7 +268,7 @@ export const AddApplianceModal = ({
                 returnKeyType="search"
               />
             </View>
-            <Button onPress={handleModelSearch} disabled={modelSearchLoading} style={{ paddingVertical: 10, paddingHorizontal: 14 }}>
+            <Button onPress={handleModelSearch} disabled={modelSearchLoading} fullWidth={false} style={{ paddingVertical: 10, paddingHorizontal: 14 }}>
               {modelSearchLoading ? (
                 <Text style={{ color: theme.bg, fontSize: 13, fontWeight: '700' }}>...</Text>
               ) : (
@@ -468,12 +468,12 @@ export const AddApplianceModal = ({
 
         <View style={{ flexDirection: 'row', gap: 10, marginTop: 16 }}>
           <View style={{ flex: 1 }}>
-            <Button variant="ghost" onPress={goBack} style={{ paddingVertical: 12 }}>
+            <Button variant="ghost" onPress={goBack} fullWidth={false} style={{ flex: 1, paddingVertical: 12 }}>
               <Text style={{ color: theme.cyan, fontSize: 15, fontWeight: '700' }}>Cancelar</Text>
             </Button>
           </View>
           <View style={{ flex: 1 }}>
-            <Button onPress={handleSaveManual} disabled={saving || !manualName} style={{ paddingVertical: 12 }}>
+            <Button onPress={handleSaveManual} disabled={saving || !manualName} fullWidth={false} style={{ flex: 1, paddingVertical: 12 }}>
               {saving ? (
                 <Text style={{ color: theme.bg, fontSize: 15, fontWeight: '700' }}>Guardando...</Text>
               ) : (
