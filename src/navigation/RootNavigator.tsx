@@ -62,6 +62,9 @@ function RootNavigatorInner() {
       if (data) {
         setSession(data);
         await loadUserData(data.user.id);
+      } else {
+        setAuthInitial('Login');
+        setScreen('auth');
       }
       setInitializing(false);
     };
