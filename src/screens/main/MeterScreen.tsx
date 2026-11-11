@@ -1,7 +1,7 @@
 // ─── src/screens/main/MeterScreen.tsx ──────────────────────────────────────
 // Pantalla de medidor (lectura de medidor)
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { useTheme } from '@/styles/theme';
 import { Button, Input } from '@/components/ui';
@@ -26,8 +26,6 @@ export default function MeterScreen({ profile, appliances }: MeterScreenProps) {
 
   const [meterReading, setMeterReading] = useState('');
   const [lastReading, setLastReading] = useState<string | null>(null);
-  const [consumptionDiff, setConsumptionDiff] = useState<number | null>(null);
-  const [costDiff, setCostDiff] = useState<number | null>(null);
 
   // Cargar lectura guardada
   useEffect(() => {
@@ -44,20 +42,15 @@ export default function MeterScreen({ profile, appliances }: MeterScreenProps) {
     });
   }, []);
 
-  // Calcular diferencia cuando cambie la lectura
-  useEffect(() => {
-    if (lastReading && meterReading) {
-      const current = parseFloat(meterReading);
-      const previous = parseFloat(lastReading);
-      if (!isNaN(current) && !isNaN(previous) && current >= previous) {
-        const diff = current - previous;
-        setConsumptionDiff(diff);
-        setCostDiff(diff * tariff);
-      } else {
-        setConsumptionDiff(null);
-        setCostDiff(null);
-      }
+  // Diferencia de consumo cuando cambie la lectura
+  const { consumptionDiff, costDiff } = useMemo(() => {
+    const current = parseFloat(meterReading);
+    const previous = parseFloat(lastReading ?? '');
+    if (!meterReading || !lastReading || isNaN(current) || isNaN(previous) || current < previous) {
+      return { consumptionDiff: null, costDiff: null };
     }
+    const diff = current - previous;
+    return { consumptionDiff: diff, costDiff: diff * tariff };
   }, [meterReading, lastReading, tariff]);
 
   // Consumo estimado por electrodomésticos

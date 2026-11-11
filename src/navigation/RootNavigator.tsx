@@ -23,6 +23,30 @@ function RootNavigatorInner() {
   const [appliances, setAppliances] = useState<Appliance[]>([]);
   const [initializing, setInitializing] = useState(true);
 
+  const loadUserData = useCallback(async (userId: string) => {
+    try {
+      const { data: profileData, error: profileError } = await getProfile(userId);
+      if (profileError) throw profileError;
+
+      if (profileData) {
+        setProfile(profileData);
+        const { data: appData, error: appError } = await getAppliances(userId);
+        if (appError) throw appError;
+        setAppliances(appData || []);
+        setScreen('main');
+      } else {
+        // Sin perfil: el usuario necesita completar el onboarding (Setup)
+        setAuthInitial('Setup');
+        setPendingUserId(userId);
+        setScreen('auth');
+      }
+    } catch (error) {
+      console.error('Error loading user data:', error);
+      setAuthInitial('Login');
+      setScreen('auth');
+    }
+  }, []);
+
   // Cargar sesión al iniciar
   useEffect(() => {
     let mounted = true;
@@ -64,30 +88,6 @@ function RootNavigatorInner() {
       mounted = false;
       subscription.unsubscribe();
     };
-  }, []);
-
-  const loadUserData = useCallback(async (userId: string) => {
-    try {
-      const { data: profileData, error: profileError } = await getProfile(userId);
-      if (profileError) throw profileError;
-
-      if (profileData) {
-        setProfile(profileData);
-        const { data: appData, error: appError } = await getAppliances(userId);
-        if (appError) throw appError;
-        setAppliances(appData || []);
-        setScreen('main');
-      } else {
-        // Sin perfil: el usuario necesita completar el onboarding (Setup)
-        setAuthInitial('Setup');
-        setPendingUserId(userId);
-        setScreen('auth');
-      }
-    } catch (error) {
-      console.error('Error loading user data:', error);
-      setAuthInitial('Login');
-      setScreen('auth');
-    }
   }, []);
 
   const handleLogout = useCallback(async () => {

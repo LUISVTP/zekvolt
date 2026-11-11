@@ -11,7 +11,7 @@ export type CameraStep = 'idle' | 'scanning' | 'processing' | 'result' | 'manual
 interface UseCameraResult {
   cameraRef: React.RefObject<CameraView | null>;
   cameraPermission: ImagePicker.PermissionResponse | null;
-  requestCameraPermission: () => Promise<void>;
+  requestCameraPermission: () => Promise<unknown>;
   cameraStep: CameraStep;
   setCameraStep: (step: CameraStep) => void;
   showFullscreenCamera: boolean;

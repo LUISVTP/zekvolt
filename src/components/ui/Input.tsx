@@ -28,7 +28,7 @@ interface InputProps extends Omit<TextInputProps, 'onChange' | 'onChangeText' | 
   rightElementStyle?: StyleProp<ViewStyle>;
 }
 
-export const Input = React.forwardRef<TextInput, InputProps>(
+export const Input = React.forwardRef<React.ElementRef<typeof TextInput>, InputProps>(
   (
     {
       label,

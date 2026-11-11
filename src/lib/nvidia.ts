@@ -85,7 +85,7 @@ async function callNvidiaAPI(body: NvidiaRequest, retries = 2): Promise<NvidiaRe
     }
     if (response.status === 429) {
       if (retries > 0) {
-        await new Promise(r => setTimeout(r, 3000));
+        await new Promise<void>(resolve => setTimeout(resolve, 3000));
         return callNvidiaAPI(body, retries - 1);
       }
       throw new ZekvoltError('RATE_LIMIT', 'Límite de requests alcanzado. Espera un momento e intenta de nuevo.');

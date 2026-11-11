@@ -18,7 +18,7 @@ interface ScreenProps {
   contentInsetAdjustmentBehavior?: 'automatic' | 'scrollableAxes' | 'never' | 'always';
 }
 
-export const Screen = React.forwardRef<ScrollView, ScreenProps>(
+export const Screen = React.forwardRef<React.ElementRef<typeof ScrollView>, ScreenProps>(
   (
     {
       children,
@@ -74,7 +74,7 @@ export const Screen = React.forwardRef<ScrollView, ScreenProps>(
       return (
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : StatusBar.currentHeight}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : StatusBar.currentHeight ?? undefined}
           style={{ flex: 1, backgroundColor: theme.bg }}
         >
           {safeArea ? (

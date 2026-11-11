@@ -13,7 +13,7 @@ interface CardProps {
   onPress?: () => void;
 }
 
-export const Card = React.forwardRef<View, CardProps>(
+export const Card = React.forwardRef<React.ElementRef<typeof View>, CardProps>(
   ({ children, style, variant = 'default', padding = 16, onPress, ...props }, ref) => {
     const { theme } = useTheme();
 

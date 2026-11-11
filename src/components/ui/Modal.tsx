@@ -15,7 +15,7 @@ interface ModalProps {
   showDragHandle?: boolean;
 }
 
-export const Modal = React.forwardRef<RNModal, ModalProps>(
+export const Modal = React.forwardRef<React.ElementRef<typeof RNModal>, ModalProps>(
   ({ visible, onClose, children, title, style, maxHeight = '70%', showDragHandle = true, ...props }, ref) => {
     const { theme } = useTheme();
 

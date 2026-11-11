@@ -1,7 +1,7 @@
 // ─── src/screens/auth/SplashScreen.tsx ───────────────────────────────────
 // Pantalla de splash con animaciones
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Animated, StyleProp, ViewStyle } from 'react-native';
 import { useTheme } from '@/styles/theme';
 import { ZekvoltLogo } from '@/components/logo/ZekvoltLogo';
@@ -14,13 +14,13 @@ interface SplashScreenProps {
 export default function SplashScreen({ onDone, style }: SplashScreenProps) {
   const { theme } = useTheme();
 
-  const pulseAnim = useRef(new Animated.Value(1)).current;
-  const fadeTitle = useRef(new Animated.Value(0)).current;
-  const fadeSubtitle = useRef(new Animated.Value(0)).current;
-  const fadeDots = useRef(new Animated.Value(0)).current;
-  const slideTitle = useRef(new Animated.Value(24)).current;
-  const slideSubtitle = useRef(new Animated.Value(24)).current;
-  const slideDots = useRef(new Animated.Value(24)).current;
+  const pulseAnim = useState(() => new Animated.Value(1))[0];
+  const fadeTitle = useState(() => new Animated.Value(0))[0];
+  const fadeSubtitle = useState(() => new Animated.Value(0))[0];
+  const fadeDots = useState(() => new Animated.Value(0))[0];
+  const slideTitle = useState(() => new Animated.Value(24))[0];
+  const slideSubtitle = useState(() => new Animated.Value(24))[0];
+  const slideDots = useState(() => new Animated.Value(24))[0];
 
   useEffect(() => {
     // Pulse animation loop
