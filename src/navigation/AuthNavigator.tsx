@@ -34,12 +34,11 @@ export function AuthNavigator({ initialRouteName = 'Splash', userId, onSetupComp
       <AuthStack.Screen name="Splash" component={SplashRoute} />
       <AuthStack.Screen name="Login" component={LoginScreen} />
       <AuthStack.Screen name="Register" component={RegisterScreen} />
-      <AuthStack.Screen
-        name="Setup"
-        component={(props: NativeStackScreenProps<AuthStackParams, 'Setup'>) => (
+      <AuthStack.Screen name="Setup">
+        {(props: NativeStackScreenProps<AuthStackParams, 'Setup'>) => (
           <SetupScreen {...props} userId={userId} onSetupComplete={onSetupComplete} />
         )}
-      />
+      </AuthStack.Screen>
     </AuthStack.Navigator>
   );
 }

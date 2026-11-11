@@ -75,25 +75,25 @@ export function MainTabNavigator({
       })}
     >
       <MainTab.Screen
-        name="Home"
-        component={() => <HomeScreen profile={profile} appliances={appliances} />}
-      />
+        name="Home">
+        {() => <HomeScreen profile={profile} appliances={appliances} />}
+      </MainTab.Screen>
       <MainTab.Screen
-        name="Appliances"
-        component={() => <AppliancesScreen profile={profile} appliances={appliances} onAddAppliance={onAddAppliance} onRemoveAppliance={onRemoveAppliance} />}
-      />
+        name="Appliances">
+        {() => <AppliancesScreen profile={profile} appliances={appliances} onAddAppliance={onAddAppliance} onRemoveAppliance={onRemoveAppliance} />}
+      </MainTab.Screen>
       <MainTab.Screen
-        name="Scan"
-        component={() => <ScanScreen profile={profile} onAddAppliance={onAddAppliance} />}
-      />
+        name="Scan">
+        {() => <ScanScreen profile={profile} onAddAppliance={onAddAppliance} />}
+      </MainTab.Screen>
       <MainTab.Screen
-        name="Meter"
-        component={() => <MeterScreen profile={profile} appliances={appliances} />}
-      />
+        name="Meter">
+        {() => <MeterScreen profile={profile} appliances={appliances} />}
+      </MainTab.Screen>
       <MainTab.Screen
-        name="Settings"
-        component={() => <SettingsScreen profile={profile} userEmail={userEmail} onLogout={onLogout} onUpdateProfile={onUpdateProfile} />}
-      />
+        name="Settings">
+        {() => <SettingsScreen profile={profile} userEmail={userEmail} onLogout={onLogout} onUpdateProfile={onUpdateProfile} />}
+      </MainTab.Screen>
     </MainTab.Navigator>
   );
 }
