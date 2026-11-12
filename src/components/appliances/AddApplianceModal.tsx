@@ -188,7 +188,7 @@ export const AddApplianceModal = ({
           </View>
 
           <ScrollView
-            contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 60 }}
+            contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 20 }}
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
@@ -204,6 +204,23 @@ export const AddApplianceModal = ({
 
             {renderStepContent()}
           </ScrollView>
+          {step === 'manual' && (
+            <View style={{ flexDirection: 'row', gap: 10, paddingTop: 12, paddingBottom: 8 }}>
+              <Button variant="ghost" onPress={goBack} fullWidth={false} style={{ flex: 1, paddingVertical: 12 }}>
+                <Text style={{ color: theme.cyan, fontSize: 15, fontWeight: '700' }}>Cancelar</Text>
+              </Button>
+              <Button onPress={handleSaveManual} disabled={saving || !manualName} fullWidth={false} style={{ flex: 1, paddingVertical: 12 }}>
+                {saving ? (
+                  <Text style={{ color: theme.bg, fontSize: 15, fontWeight: '700' }}>Guardando...</Text>
+                ) : (
+                  <>
+                    <Icon name="plus" size={16} color={theme.bg} />
+                    <Text style={{ color: theme.bg, fontSize: 15, fontWeight: '700' }}>Agregar</Text>
+                  </>
+                )}
+              </Button>
+            </View>
+          )}
         </View>
       </TouchableOpacity>
     </Modal>
@@ -466,25 +483,6 @@ export const AddApplianceModal = ({
 
         <EnergyTips applianceName={manualName} />
 
-        <View style={{ flexDirection: 'row', gap: 10, marginTop: 16 }}>
-          <View style={{ flex: 1 }}>
-            <Button variant="ghost" onPress={goBack} fullWidth={false} style={{ flex: 1, paddingVertical: 12 }}>
-              <Text style={{ color: theme.cyan, fontSize: 15, fontWeight: '700' }}>Cancelar</Text>
-            </Button>
-          </View>
-          <View style={{ flex: 1 }}>
-            <Button onPress={handleSaveManual} disabled={saving || !manualName} fullWidth={false} style={{ flex: 1, paddingVertical: 12 }}>
-              {saving ? (
-                <Text style={{ color: theme.bg, fontSize: 15, fontWeight: '700' }}>Guardando...</Text>
-              ) : (
-                <>
-                  <Icon name="plus" size={16} color={theme.bg} />
-                  <Text style={{ color: theme.bg, fontSize: 15, fontWeight: '700' }}>Agregar</Text>
-                </>
-              )}
-            </Button>
-          </View>
-        </View>
       </>
     );
   }

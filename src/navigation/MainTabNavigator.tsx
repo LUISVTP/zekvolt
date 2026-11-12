@@ -3,6 +3,7 @@
 
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '@/styles/theme';
 import Icon, { type IconName } from '@/components/icons/Icon';
 import HomeScreen from '@/screens/main/HomeScreen';
@@ -53,6 +54,7 @@ export function MainTabNavigator({
   };
 
   return (
+    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: theme.bg }}>
     <MainTab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
@@ -104,6 +106,7 @@ export function MainTabNavigator({
         {() => <SettingsScreen profile={profile} userEmail={userEmail} onLogout={onLogout} onUpdateProfile={onUpdateProfile} />}
       </MainTab.Screen>
     </MainTab.Navigator>
+    </SafeAreaView>
   );
 }
 
