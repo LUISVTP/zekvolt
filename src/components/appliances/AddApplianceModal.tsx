@@ -188,6 +188,7 @@ export const AddApplianceModal = ({
           </View>
 
           <ScrollView
+            style={{ flex: 1 }}
             contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 20 }}
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
@@ -205,7 +206,7 @@ export const AddApplianceModal = ({
             {renderStepContent()}
           </ScrollView>
           {step === 'manual' && (
-            <View style={{ flexDirection: 'row', gap: 10, paddingTop: 12, paddingBottom: 8 }}>
+            <View style={{ flexDirection: 'row', gap: 10, paddingHorizontal: 20, paddingTop: 12, paddingBottom: 8 }}>
               <Button variant="ghost" onPress={goBack} fullWidth={false} style={{ flex: 1, paddingVertical: 12 }}>
                 <Text style={{ color: theme.cyan, fontSize: 15, fontWeight: '700' }}>Cancelar</Text>
               </Button>
