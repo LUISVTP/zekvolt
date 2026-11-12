@@ -6,6 +6,8 @@ import {
   View,
   Text,
   TextInput,
+  TouchableWithoutFeedback,
+  StyleSheet,
   TouchableOpacity,
   ScrollView,
   Modal,
@@ -166,11 +168,10 @@ export const AddApplianceModal = ({
 
   return (
     <Modal visible={visible} transparent animationType="slide">
-      <TouchableOpacity
-        style={{ flex: 1, backgroundColor: theme.overlay, justifyContent: 'flex-end' }}
-        activeOpacity={1}
-        onPress={handleClose}
-      >
+      <View style={{ flex: 1, backgroundColor: theme.overlay, justifyContent: 'flex-end' }}>
+        <TouchableWithoutFeedback onPress={handleClose}>
+          <View style={StyleSheet.absoluteFill} />
+        </TouchableWithoutFeedback>
         <View
           style={[
             {
@@ -223,7 +224,7 @@ export const AddApplianceModal = ({
             </View>
           )}
         </View>
-      </TouchableOpacity>
+      </View>
     </Modal>
   );
 
