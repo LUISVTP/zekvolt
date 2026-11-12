@@ -1,10 +1,10 @@
 // ─── src/hooks/useCamera.ts ───────────────────────────────────────────
 // Hook para manejo de cámara y galería
 
+import { showAppAlert } from '@/components/ui/AppAlert';
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
-import { Alert } from 'react-native';
 
 export type CameraStep = 'idle' | 'scanning' | 'processing' | 'result' | 'manual';
 
@@ -39,7 +39,7 @@ export function useCamera(): UseCameraResult {
         setShowFullscreenCamera(false);
       }
     } catch (err) {
-      Alert.alert('Error', 'No se pudo capturar la imagen: ' + (err instanceof Error ? err.message : 'Error desconocido'));
+      showAppAlert('Error', 'No se pudo capturar la imagen: ' + (err instanceof Error ? err.message : 'Error desconocido'));
     }
   }, []);
 
@@ -47,7 +47,7 @@ export function useCamera(): UseCameraResult {
     try {
       const perm = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (!perm.granted) {
-        Alert.alert('Permiso requerido', 'Necesitamos acceso a tu galería para seleccionar imágenes.');
+        showAppAlert('Permiso requerido', 'Necesitamos acceso a tu galería para seleccionar imágenes.');
         return;
       }
       const result = await ImagePicker.launchImageLibraryAsync({
@@ -59,7 +59,7 @@ export function useCamera(): UseCameraResult {
         setCapturedImage(result.assets[0].base64 ?? null);
       }
     } catch (err) {
-      Alert.alert(
+      showAppAlert(
         'Librería no disponible',
         'Instala expo-image-picker:\n  npx expo install expo-image-picker'
       );

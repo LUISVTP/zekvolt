@@ -1,8 +1,9 @@
 // ─── src/screens/auth/RegisterScreen.tsx ─────────────────────────────────
 // Pantalla de registro
 
+import { showAppAlert } from '@/components/ui/AppAlert';
 import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Alert, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@/styles/theme';
 import { Button, Input } from '@/components/ui';
@@ -41,7 +42,7 @@ export default function RegisterScreen() {
       const { error } = await signUp(email.trim(), pass);
       if (error) throw error;
 
-      Alert.alert(
+      showAppAlert(
         'Cuenta creada',
         'Tu cuenta fue creada exitosamente. Inicia sesión para continuar.',
         [{ text: 'OK', onPress: () => navigation.navigate('Login') }]

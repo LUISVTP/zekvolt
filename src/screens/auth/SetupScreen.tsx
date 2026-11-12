@@ -1,8 +1,9 @@
 // ─── src/screens/auth/SetupScreen.tsx ────────────────────────────────────
 // Pantalla de configuración inicial (onboarding)
 
+import { showAppAlert } from '@/components/ui/AppAlert';
 import React, { useState } from 'react';
-import { View, Text, ScrollView, Alert, KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
 import { useTheme } from '@/styles/theme';
 import { Button, Select } from '@/components/ui';
 import Icon from '@/components/icons/Icon';
@@ -44,7 +45,7 @@ export default function SetupScreen({ userId, onSetupComplete }: SetupScreenProp
       onSetupComplete?.(userId);
     } catch (err) {
       const message = err instanceof ZekvoltError ? err.message : 'No se pudo guardar tu perfil. Intenta de nuevo.';
-      Alert.alert('Error', message);
+      showAppAlert('Error', message);
     } finally {
       setLoading(false);
     }

@@ -1,9 +1,10 @@
 // ─── src/navigation/RootNavigator.tsx ─────────────────────────────────────
 // Navegador raíz que maneja el estado de autenticación
 
+import { showAppAlert } from '@/components/ui/AppAlert';
 import React, { useState, useEffect, useCallback } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { Alert, SafeAreaView, StatusBar } from 'react-native';
+import { SafeAreaView, StatusBar } from 'react-native';
 import { useTheme } from '@/styles/theme';
 import { getSession, onAuthChange, signOut } from '@/services/auth.service';
 import { getProfile } from '@/services/profile.service';
@@ -101,7 +102,7 @@ function RootNavigatorInner() {
     if (!session?.user.id) return false;
     const { error } = await addAppliance(session.user.id, applianceData);
     if (error) {
-      Alert.alert('No se pudo agregar', error.message);
+      showAppAlert('No se pudo agregar', error.message);
       return false;
     }
     await loadUserData(session.user.id);
@@ -112,7 +113,7 @@ function RootNavigatorInner() {
     if (!session?.user.id) return;
     const { error } = await removeAppliance(applianceId);
     if (error) {
-      Alert.alert('No se pudo eliminar', error.message);
+      showAppAlert('No se pudo eliminar', error.message);
       return;
     }
     await loadUserData(session.user.id);

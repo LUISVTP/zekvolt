@@ -1,6 +1,7 @@
 // ─── src/screens/main/ScanScreen.tsx ───────────────────────────────────────
 // Pantalla de escaneo IA (Escanear tab)
 
+import { showAppAlert } from '@/components/ui/AppAlert';
 import React, { useState, useCallback } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { useTheme } from '@/styles/theme';
@@ -11,7 +12,6 @@ import { analyzeApplianceImage, lookupModelByText, validateManualWatts, getExpec
 import { useCamera } from '@/hooks/useCamera';
 import { getTariffForStratum, formatCOP } from '@/data/tariffs';
 import { getDefaultHours, getExpectedWatts } from '@/data/appliances';
-import { Alert } from 'react-native';
 import type { VisionResult as VisionResultType, WattValidationResult, ThemeColors } from '@/types';
 
 interface ScanScreenProps {
@@ -67,6 +67,16 @@ export default function ScanScreen({ profile, onAddAppliance }: ScanScreenProps)
     setHookCameraStep(step as any);
   };
 
+  // Vuelve a la cámara en vivo (estado local y del hook)
+  const resetScan = () => {
+    syncStep('idle');
+    setCapturedImage(null);
+    setDetectedResult(null);
+    setVisionError(null);
+    setIsRescan(false);
+    resetCamera();
+  };
+
   // Analizar imagen con IA
   const analyzeImage = useCallback(async () => {
     if (!capturedImage) return;
@@ -118,10 +128,10 @@ export default function ScanScreen({ profile, onAddAppliance }: ScanScreenProps)
     try {
       const saved = await onAddAppliance(applianceData);
       if (saved) {
-        Alert.alert('Guardado', applianceData.name + ' se agregó a tus electrodomésticos.', [{ text: 'OK', onPress: resetCamera }], { cancelable: false });
+        showAppAlert('Guardado', applianceData.name + ' se agregó a tus electrodomésticos.', [{ text: 'OK', onPress: resetScan }]);
       }
     } catch (error) {
-      Alert.alert('Error', 'No se pudo guardar el electrodoméstico');
+      showAppAlert('Error', 'No se pudo guardar el electrodoméstico');
     } finally {
       setSaving(false);
     }
@@ -140,20 +150,20 @@ export default function ScanScreen({ profile, onAddAppliance }: ScanScreenProps)
     try {
       const saved = await onAddAppliance(applianceData);
       if (saved) {
-        Alert.alert('Guardado', applianceData.name + ' se agregó a tus electrodomésticos.', [{
+        showAppAlert('Guardado', applianceData.name + ' se agregó a tus electrodomésticos.', [{
           text: 'OK',
           onPress: () => {
-            resetCamera();
+            resetScan();
             setManualName('');
             setManualWatts('');
             setManualHours('');
             setManualQty('1');
             setWattWarning(null);
           },
-        }], { cancelable: false });
+        }]);
       }
     } catch (error) {
-      Alert.alert('Error', 'No se pudo guardar el electrodoméstico');
+      showAppAlert('Error', 'No se pudo guardar el electrodoméstico');
     } finally {
       setSaving(false);
     }
@@ -186,7 +196,7 @@ export default function ScanScreen({ profile, onAddAppliance }: ScanScreenProps)
         confidence: result.result.confidence,
       });
     } catch (err) {
-      Alert.alert('Error', err instanceof Error ? err.message : 'Error al buscar modelo');
+      showAppAlert('Error', err instanceof Error ? err.message : 'Error al buscar modelo');
     } finally {
       setModelSearchLoading(false);
     }

@@ -1,8 +1,9 @@
 // ─── src/components/settings/SettingsForm.tsx ─────────────────────────────
 // Formulario de configuración (perfil, tema, contraseña)
 
+import { showAppAlert } from '@/components/ui/AppAlert';
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Alert, StyleProp, ViewStyle, ScrollView, KeyboardAvoidingView, Platform, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, StyleProp, ViewStyle, ScrollView, KeyboardAvoidingView, Platform, Modal } from 'react-native';
 import { useTheme } from '@/styles/theme';
 import { Button, Input, Select } from '@/components/ui';
 import { getDepartmentOptions, getStratumOptions, getCompanyOptions } from '@/data/companies';
@@ -64,7 +65,7 @@ export const SettingsForm = ({
       setTimeout(() => setSaved(false), 2000);
     } catch (error) {
       console.error('Error guardando perfil:', error);
-      Alert.alert('Error', 'No se pudieron guardar los cambios');
+      showAppAlert('Error', 'No se pudieron guardar los cambios');
     } finally {
       setSaving(false);
     }
@@ -72,7 +73,7 @@ export const SettingsForm = ({
 
   const handleChangePassword = async () => {
     if (!newPassword || newPassword.length < 6) {
-      Alert.alert('Error', 'La contraseña debe tener al menos 6 caracteres');
+      showAppAlert('Error', 'La contraseña debe tener al menos 6 caracteres');
       return;
     }
     setPwSaving(true);
@@ -80,17 +81,17 @@ export const SettingsForm = ({
       await onChangePassword(newPassword);
       setNewPassword('');
       setShowPwModal(false);
-      Alert.alert('Éxito', 'Contraseña actualizada correctamente');
+      showAppAlert('Éxito', 'Contraseña actualizada correctamente');
     } catch (error) {
       console.error('Error cambiando contraseña:', error);
-      Alert.alert('Error', 'No se pudo cambiar la contraseña');
+      showAppAlert('Error', 'No se pudo cambiar la contraseña');
     } finally {
       setPwSaving(false);
     }
   };
 
   const handleLogout = () => {
-    Alert.alert(
+    showAppAlert(
       'Cerrar sesión',
       '¿Estás seguro de que quieres cerrar sesión?',
       [
