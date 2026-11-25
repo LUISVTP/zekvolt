@@ -1,9 +1,10 @@
 // ─── src/screens/auth/RegisterScreen.tsx ─────────────────────────────────
 // Pantalla de registro
 
-import { showAppAlert } from '@/components/ui/AppAlert';
+import {showAppAlert } from '@/components/ui/AppAlert';
 import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@/styles/theme';
 import { Button, Input } from '@/components/ui';
@@ -68,7 +69,7 @@ export default function RegisterScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View style={{ paddingTop: 50, paddingHorizontal: 24, paddingBottom: 16, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={{ backgroundColor: theme.card, borderWidth: 1, borderColor: theme.border, borderRadius: 10, padding: 8 }}>
+          <TouchableOpacity onPress={() => navigation.goBack()} accessibilityRole="button" accessibilityLabel="Volver" style={{ backgroundColor: theme.card, borderWidth: 1, borderColor: theme.border, borderRadius: 10, padding: 8 }}>
             <Icon name="arrowLeft" size={18} color={theme.text} />
           </TouchableOpacity>
           <Text style={{ fontSize: 20, fontWeight: '700', color: theme.text }}>Crear cuenta</Text>

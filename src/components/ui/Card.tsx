@@ -11,10 +11,11 @@ interface CardProps {
   variant?: 'default' | 'elevated' | 'outlined';
   padding?: number;
   onPress?: () => void;
+  accessibilityLabel?: string;
 }
 
 export const Card = React.forwardRef<React.ElementRef<typeof View>, CardProps>(
-  ({ children, style, variant = 'default', padding = 16, onPress, ...props }, ref) => {
+  ({ children, style, variant = 'default', padding = 16, onPress, accessibilityLabel, ...props }, ref) => {
     const { theme } = useTheme();
 
     const baseStyle: ViewStyle = {
@@ -44,6 +45,8 @@ export const Card = React.forwardRef<React.ElementRef<typeof View>, CardProps>(
         ref={ref}
         onPress={onPress}
         activeOpacity={0.8}
+        accessibilityRole={onPress ? 'button' : undefined}
+        accessibilityLabel={accessibilityLabel}
         style={[{ ...baseStyle, ...variantStyles[variant] }, style]}
         {...props}
       >

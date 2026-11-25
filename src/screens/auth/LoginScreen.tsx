@@ -2,7 +2,8 @@
 // Pantalla de inicio de sesión
 
 import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
+import {View, ScrollView, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView, Platform} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@/styles/theme';
 import { Button, Input } from '@/components/ui';
@@ -120,7 +121,7 @@ export default function LoginScreen() {
             onChange={setPass}
             placeholder="••••••••"
             rightElement={
-              <TouchableOpacity onPress={() => setShowPass(!showPass)} style={{ padding: 4 }}>
+              <TouchableOpacity onPress={() => setShowPass(!showPass)} accessibilityRole="button" accessibilityLabel={showPass ? "Ocultar contraseña" : "Mostrar contraseña"} style={{ padding: 4 }}>
                 <Icon name={showPass ? "eyeOff" : "eye"} size={16} color={theme.textMuted} />
               </TouchableOpacity>
             }

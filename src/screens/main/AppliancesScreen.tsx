@@ -2,7 +2,8 @@
 // Pantalla de electrodomésticos (Aparatos tab)
 
 import React, { useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import {View, ScrollView} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import { useTheme } from '@/styles/theme';
 import { ApplianceList, AddApplianceModal } from '@/components/appliances';
 import { Button } from '@/components/ui';

@@ -2,7 +2,8 @@
 // Botón reutilizable con variantes
 
 import React from 'react';
-import { TouchableOpacity, TouchableOpacityProps, Text, ActivityIndicator, StyleProp, ViewStyle, TextStyle } from 'react-native';
+import {TouchableOpacity, TouchableOpacityProps, ActivityIndicator, StyleProp, ViewStyle, TextStyle} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import { useTheme } from '@/styles/theme';
 
 export type ButtonVariant = 'primary' | 'ghost' | 'danger';
@@ -62,6 +63,8 @@ export const Button = React.forwardRef<React.ElementRef<typeof TouchableOpacity>
         onPress={onPress}
         disabled={isDisabled}
         activeOpacity={0.7}
+        accessibilityRole="button"
+        accessibilityState={{ disabled: isDisabled, busy: loading }}
         style={[
           {
             width: fullWidth ? '100%' : 'auto',

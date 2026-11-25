@@ -52,6 +52,8 @@ export interface IconProps {
   size?: number;
   color?: string;
   style?: StyleProp<ViewStyle>;
+  /** Etiqueta para lectores de pantalla. Sin ella, el icono es decorativo. */
+  label?: string;
 }
 
 const icons: Record<IconName, React.ReactElement> = {
@@ -266,7 +268,7 @@ const icons: Record<IconName, React.ReactElement> = {
   ),
 };
 
-export const Icon = ({ name, size = 20, color, style }: IconProps) => {
+export const Icon = ({ name, size = 20, color, style, label }: IconProps) => {
   const { theme } = useTheme();
   const resolvedColor = color ?? theme.cyan;
 
@@ -279,7 +281,16 @@ export const Icon = ({ name, size = 20, color, style }: IconProps) => {
   };
 
   return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" style={style} {...strokeProps}>
+    <Svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      style={style}
+      accessible={!!label}
+      accessibilityRole={label ? 'image' : undefined}
+      accessibilityLabel={label}
+      {...strokeProps}
+    >
       {icons[name]}
     </Svg>
   );

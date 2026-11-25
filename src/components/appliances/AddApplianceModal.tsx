@@ -2,18 +2,8 @@
 // Modal para agregar electrodoméstico (categorías, manual, búsqueda por modelo)
 
 import React, { useState, useCallback } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableWithoutFeedback,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  Modal,
-  StyleProp,
-  ViewStyle,
-} from 'react-native';
+import {View, TextInput, TouchableWithoutFeedback, StyleSheet, TouchableOpacity, ScrollView, Modal, StyleProp, ViewStyle} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import { getExpectedWatts as getExpectedWattsUtil } from '@/data/appliances';
 import { validateWatts } from '@/utils/validation';
 import { APPLIANCE_CATEGORIES, APPLIANCES_DB, getDefaultHours } from '@/data/appliances';
@@ -48,7 +38,7 @@ export const AddApplianceModal = ({
   onModelSearch,
   style,
 }: AddApplianceModalProps) => {
-  const { theme } = useTheme();
+  const { theme, fontScale } = useTheme();
 
   const [step, setStep] = useState<Step>('categories');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -195,7 +185,7 @@ export const AddApplianceModal = ({
             showsVerticalScrollIndicator={false}
           >
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-              <TouchableOpacity onPress={goBack} style={{ padding: 8 }}>
+              <TouchableOpacity onPress={goBack} accessibilityRole="button" accessibilityLabel="Volver" style={{ padding: 8 }}>
                 <Icon name="arrowLeft" size={20} color={theme.cyan} />
               </TouchableOpacity>
               <Text style={{ fontSize: 18, fontWeight: '700', color: theme.text, flex: 1, textAlign: 'center' }}>
@@ -407,7 +397,7 @@ export const AddApplianceModal = ({
               placeholder="Ej: 150"
               placeholderTextColor={theme.textSub}
               keyboardType="numeric"
-              style={{ flex: 1, color: theme.text, fontSize: 15, paddingVertical: 14 }}
+              style={{ flex: 1, color: theme.text, fontSize: Math.round(15 * fontScale), paddingVertical: 14 }}
             />
             <Text style={{ color: theme.textMuted, fontSize: 13 }}>W</Text>
           </View>

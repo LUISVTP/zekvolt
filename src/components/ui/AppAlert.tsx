@@ -2,7 +2,8 @@
 // Diálogo de aviso con el estilo de la app (reemplaza Alert nativo)
 
 import React, { useEffect, useState } from 'react';
-import { Modal, Text, TouchableOpacity, View } from 'react-native';
+import {Modal, TouchableOpacity, View} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import { useTheme } from '@/styles/theme';
 
 export interface AppAlertButton {
@@ -57,6 +58,7 @@ export function AppAlertHost() {
         }}
       >
         <View
+          accessibilityViewIsModal
           style={{
             width: '100%',
             maxWidth: 360,
@@ -83,6 +85,8 @@ export function AppAlertHost() {
                   key={`${button.text}-${index}`}
                   onPress={() => press(button)}
                   activeOpacity={0.7}
+                  accessibilityRole="button"
+                  accessibilityLabel={button.text}
                   style={{
                     paddingVertical: 10,
                     paddingHorizontal: 14,

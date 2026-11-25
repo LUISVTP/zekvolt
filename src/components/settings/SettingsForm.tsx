@@ -1,10 +1,11 @@
 // ─── src/components/settings/SettingsForm.tsx ─────────────────────────────
 // Formulario de configuración (perfil, tema, contraseña)
 
-import { showAppAlert } from '@/components/ui/AppAlert';
+import {showAppAlert } from '@/components/ui/AppAlert';
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleProp, ViewStyle, ScrollView, KeyboardAvoidingView, Platform, Modal } from 'react-native';
-import { useTheme } from '@/styles/theme';
+import { View, TouchableOpacity, StyleProp, ViewStyle, ScrollView, KeyboardAvoidingView, Platform, Modal} from 'react-native';
+import { Text } from '@/components/ui/AppText';
+import { useTheme, FONT_SCALE_OPTIONS } from '@/styles/theme';
 import { Button, Input, Select } from '@/components/ui';
 import { getDepartmentOptions, getStratumOptions, getCompanyOptions } from '@/data/companies';
 import { getTariffForStratum, formatCOP } from '@/data/tariffs';
@@ -32,7 +33,7 @@ export const SettingsForm = ({
   onLogout,
   style,
 }: SettingsFormProps) => {
-  const { theme } = useTheme();
+  const { theme, fontScale, setFontScale, highContrast, setHighContrast } = useTheme();
 
   const [editCity, setEditCity] = useState(profile.city);
   const [editEstrato, setEditEstrato] = useState(String(profile.estrato));
@@ -234,7 +235,13 @@ export const SettingsForm = ({
                   </Text>
                 </View>
               </View>
-              <TouchableOpacity onPress={onToggleTheme} style={{ padding: 8 }}>
+              <TouchableOpacity
+                onPress={onToggleTheme}
+                accessibilityRole="switch"
+                accessibilityState={{ checked: darkMode }}
+                accessibilityLabel="Modo oscuro"
+                style={{ padding: 8 }}
+              >
                 <View
                   style={{
                     width: 52,
@@ -259,6 +266,102 @@ export const SettingsForm = ({
             </View>
           </View>
 
+          {/* Accesibilidad */}
+          <View style={{ backgroundColor: theme.card, borderWidth: 1, borderColor: theme.border, borderRadius: 16, padding: 20, marginBottom: 24 }}>
+            <Text style={{ fontSize: 16, fontWeight: '700', color: theme.text, marginBottom: 16 }}>
+              Accesibilidad
+            </Text>
+
+            <Text style={{ color: theme.textMuted, fontSize: 11, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 10, fontFamily: 'monospace' }}>
+              Tamaño del texto
+            </Text>
+            <View style={{ flexDirection: 'row', gap: 8, marginBottom: 20 }}>
+              {FONT_SCALE_OPTIONS.map(option => {
+                const active = fontScale === option.value;
+                return (
+                  <TouchableOpacity
+                    key={option.value}
+                    onPress={() => setFontScale(option.value)}
+                    accessibilityRole="radio"
+                    accessibilityState={{ selected: active }}
+                    accessibilityLabel={`Tamaño de texto ${option.label}`}
+                    style={{
+                      flex: 1,
+                      minHeight: 44,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderRadius: 12,
+                      borderWidth: active ? 2 : 1,
+                      borderColor: active ? theme.cyan : theme.border,
+                      backgroundColor: active ? theme.cyanDim : 'transparent',
+                      paddingHorizontal: 6,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: active ? theme.cyan : theme.textMuted,
+                        fontSize: 13,
+                        fontWeight: '700',
+                        textAlign: 'center',
+                      }}
+                    >
+                      {option.label}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, flex: 1 }}>
+                <View
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 20,
+                    backgroundColor: theme.cyanDim,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Icon name="eye" size={20} color={theme.cyan} />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={{ fontSize: 15, fontWeight: '600', color: theme.text }}>Alto contraste</Text>
+                  <Text style={{ fontSize: 12, color: theme.textMuted }}>{highContrast ? 'Activado' : 'Desactivado'}</Text>
+                </View>
+              </View>
+              <TouchableOpacity
+                onPress={() => setHighContrast(!highContrast)}
+                accessibilityRole="switch"
+                accessibilityState={{ checked: highContrast }}
+                accessibilityLabel="Alto contraste"
+                style={{ padding: 8 }}
+              >
+                <View
+                  style={{
+                    width: 52,
+                    height: 28,
+                    borderRadius: 14,
+                    backgroundColor: highContrast ? theme.cyan : theme.border,
+                    padding: 2,
+                    justifyContent: 'center',
+                  }}
+                >
+                  <View
+                    style={{
+                      width: 24,
+                      height: 24,
+                      borderRadius: 12,
+                      backgroundColor: theme.bg,
+                      marginLeft: highContrast ? 26 : 2,
+                    }}
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+
           {/* Cuenta */}
           <View style={{ backgroundColor: theme.card, borderWidth: 1, borderColor: theme.border, borderRadius: 16, padding: 20, marginBottom: 24 }}>
             <Text style={{ fontSize: 16, fontWeight: '700', color: theme.text, marginBottom: 16 }}>
@@ -267,6 +370,8 @@ export const SettingsForm = ({
 
             <TouchableOpacity
               onPress={() => setShowPwModal(true)}
+              accessibilityRole="button"
+              accessibilityLabel="Cambiar contraseña"
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -299,6 +404,8 @@ export const SettingsForm = ({
 
             <TouchableOpacity
               onPress={handleLogout}
+              accessibilityRole="button"
+              accessibilityLabel="Cerrar sesión"
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -402,7 +509,12 @@ const ChangePasswordModal = ({
                 inputStyle={{ flex: 1, color: theme.text, fontSize: 15, paddingVertical: 14 }}
                 style={{ borderWidth: 0, backgroundColor: 'transparent', paddingHorizontal: 0 }}
               />
-              <TouchableOpacity onPress={() => setShow(!show)} style={{ padding: 4 }}>
+              <TouchableOpacity
+                onPress={() => setShow(!show)}
+                accessibilityRole="button"
+                accessibilityLabel={show ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                style={{ padding: 4 }}
+              >
                 <Icon name={show ? "eyeOff" : "eye"} size={16} color={theme.textMuted} />
               </TouchableOpacity>
             </View>

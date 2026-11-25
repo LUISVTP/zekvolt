@@ -2,7 +2,8 @@
 // Pantalla de medidor (lectura de medidor)
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import {View, ScrollView} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import { useTheme } from '@/styles/theme';
 import { Button, Input } from '@/components/ui';
 import { ZekvoltLogo } from '@/components/logo/ZekvoltLogo';

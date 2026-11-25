@@ -2,7 +2,8 @@
 // Select modal picker reutilizable
 
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, FlatList, StyleProp, ViewStyle, TextStyle, TouchableOpacityProps } from 'react-native';
+import {View, TouchableOpacity, Modal, FlatList, StyleProp, ViewStyle, TextStyle, TouchableOpacityProps} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import Icon, { IconName } from '@/components/icons/Icon';
 import { useTheme } from '@/styles/theme';
 
@@ -22,6 +23,7 @@ interface SelectProps {
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
+  accessibilityLabel?: string;
 }
 
 export const Select = React.forwardRef<React.ElementRef<typeof TouchableOpacity>, SelectProps>(
@@ -33,6 +35,7 @@ export const Select = React.forwardRef<React.ElementRef<typeof TouchableOpacity>
       onChange,
       options,
       placeholder = 'Selecciona...',
+      accessibilityLabel,
       error,
       disabled = false,
       style,
@@ -114,6 +117,10 @@ export const Select = React.forwardRef<React.ElementRef<typeof TouchableOpacity>
           onPress={() => setOpen(true)}
           activeOpacity={0.7}
           disabled={disabled}
+          accessibilityRole="button"
+          accessibilityLabel={accessibilityLabel ?? label}
+          accessibilityValue={{ text: selected?.label ?? placeholder }}
+          accessibilityState={{ disabled, expanded: open }}
           style={{
             backgroundColor: theme.card,
             borderWidth: 1,

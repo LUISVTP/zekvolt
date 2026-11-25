@@ -2,9 +2,11 @@
 // Input reutilizable
 
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleProp, ViewStyle, TextStyle, TextInputProps } from 'react-native';
+import {View, TextInput, TouchableOpacity, StyleProp, ViewStyle, TextStyle, TextInputProps} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import Icon, { IconName } from '@/components/icons/Icon';
 import { useTheme } from '@/styles/theme';
+import { scaleTextStyle } from '@/utils/accessibility';
 
 export type InputType = 'text' | 'email' | 'password' | 'numeric' | 'decimal';
 
@@ -52,7 +54,7 @@ export const Input = React.forwardRef<React.ElementRef<typeof TextInput>, InputP
     },
     ref
   ) => {
-    const { theme } = useTheme();
+    const { theme, fontScale } = useTheme();
     const hasError = !!error;
 
     const secureTextEntry = type === 'password';
@@ -103,15 +105,21 @@ export const Input = React.forwardRef<React.ElementRef<typeof TextInput>, InputP
             returnKeyType={returnKeyType}
             onSubmitEditing={onSubmitEditing}
             editable={!disabled}
-            style={[
-              {
-                flex: 1,
-                color: theme.text,
-                fontSize: 15,
-                paddingVertical: 14,
-              },
-              inputStyle,
-            ]}
+            accessibilityLabel={props.accessibilityLabel ?? label}
+            accessibilityHint={hasError ? `Error: ${error}` : undefined}
+            accessibilityState={{ disabled }}
+            style={scaleTextStyle(
+              [
+                {
+                  flex: 1,
+                  color: theme.text,
+                  fontSize: 15,
+                  paddingVertical: 14,
+                },
+                inputStyle,
+              ],
+              fontScale
+            )}
             {...props}
           />
           {rightElement && (

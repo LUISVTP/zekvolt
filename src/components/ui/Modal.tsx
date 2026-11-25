@@ -2,7 +2,8 @@
 // Modal reutilizable con animación slide
 
 import React from 'react';
-import { Modal as RNModal, View, ViewStyle, Text, TouchableOpacity, StyleProp, DimensionValue } from 'react-native';
+import {Modal as RNModal, View, ViewStyle, TouchableOpacity, StyleProp, DimensionValue} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import { useTheme } from '@/styles/theme';
 
 interface ModalProps {
@@ -34,6 +35,7 @@ export const Modal = React.forwardRef<React.ElementRef<typeof RNModal>, ModalPro
           onPress={onClose}
         >
           <View
+            accessibilityViewIsModal
             style={[
               {
                 backgroundColor: theme.surface,

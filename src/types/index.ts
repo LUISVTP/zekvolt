@@ -148,6 +148,10 @@ export interface ThemeContextValue {
   theme: ThemeColors;
   toggle: () => void;
   setDark: (dark: boolean) => void;
+  highContrast: boolean;
+  setHighContrast: (value: boolean) => void;
+  fontScale: number;
+  setFontScale: (value: number) => void;
 }
 
 // ─── Validación ────────────────────────────────────────────────────────

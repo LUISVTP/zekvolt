@@ -2,7 +2,8 @@
 // Vista de cámara en vivo con overlay
 
 import React from 'react';
-import { View, Text, StyleProp, ViewStyle, TouchableOpacity, Image } from 'react-native';
+import {View, StyleProp, ViewStyle, TouchableOpacity, Image} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import { CameraView as ExpoCameraView, useCameraPermissions } from 'expo-camera';
 import { useTheme } from '@/styles/theme';
 import Icon from '@/components/icons/Icon';
@@ -67,7 +68,7 @@ export const CameraView = ({
     <View style={[{ flex: 1, backgroundColor: theme.bg }, style]}>
       {/* Header */}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 16 }}>
-        <TouchableOpacity onPress={onClose} style={{ padding: 8 }}>
+        <TouchableOpacity onPress={onClose} accessibilityRole="button" accessibilityLabel="Volver" style={{ padding: 8 }}>
           <Icon name="arrowLeft" size={20} color={theme.cyan} />
         </TouchableOpacity>
         {isRescan && (

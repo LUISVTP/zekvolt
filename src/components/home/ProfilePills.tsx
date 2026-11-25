@@ -2,7 +2,8 @@
 // Píldoras de información de perfil en Home
 
 import React from 'react';
-import { View, Text, StyleProp, ViewStyle } from 'react-native';
+import {View, StyleProp, ViewStyle} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import { useTheme } from '@/styles/theme';
 import Icon from '@/components/icons/Icon';
 

@@ -1,9 +1,10 @@
 // ─── src/screens/main/ScanScreen.tsx ───────────────────────────────────────
 // Pantalla de escaneo IA (Escanear tab)
 
-import { showAppAlert } from '@/components/ui/AppAlert';
+import {showAppAlert } from '@/components/ui/AppAlert';
 import React, { useState, useCallback } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { View, TextInput, TouchableOpacity, ScrollView} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import { useTheme } from '@/styles/theme';
 import { CameraView, VisionResult } from '@/components/camera';
 import { Button, Input } from '@/components/ui';
@@ -26,7 +27,7 @@ interface ScanScreenProps {
 type CameraStep = 'idle' | 'result' | 'manual';
 
 export default function ScanScreen({ profile, onAddAppliance }: ScanScreenProps) {
-  const { theme } = useTheme();
+  const { theme, fontScale } = useTheme();
   const tariff = getTariffForStratum(profile.company, profile.estrato);
 
   // Hook de cámara
@@ -251,6 +252,7 @@ export default function ScanScreen({ profile, onAddAppliance }: ScanScreenProps)
   // Props para ManualForm (declarados antes de los returns para evitar TDZ)
   const manualFormProps = {
     theme,
+    fontScale,
     manualName,
     setManualName,
     manualWatts,
@@ -314,6 +316,7 @@ export default function ScanScreen({ profile, onAddAppliance }: ScanScreenProps)
 // Componente separado para el formulario manual
 interface ManualFormProps {
   theme: ThemeColors;
+  fontScale: number;
   manualName: string;
   setManualName: (v: string) => void;
   manualWatts: string;
@@ -333,6 +336,7 @@ interface ManualFormProps {
 
 const ManualForm = ({
   theme,
+  fontScale,
   manualName,
   setManualName,
   manualWatts,
@@ -423,7 +427,7 @@ const ManualForm = ({
               placeholder="Ej: 150"
               placeholderTextColor={theme.textSub}
               keyboardType="numeric"
-              style={{ flex: 1, color: theme.text, fontSize: 15, paddingVertical: 14 }}
+              style={{ flex: 1, color: theme.text, fontSize: Math.round(15 * fontScale), paddingVertical: 14 }}
             />
             <Text style={{ color: theme.textMuted, fontSize: 13 }}>W</Text>
           </View>

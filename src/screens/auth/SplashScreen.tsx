@@ -2,7 +2,7 @@
 // Pantalla de splash con animaciones
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, Animated, StyleProp, ViewStyle } from 'react-native';
+import { View, Animated, StyleProp, ViewStyle } from 'react-native';
 import { useTheme } from '@/styles/theme';
 import { ZekvoltLogo } from '@/components/logo/ZekvoltLogo';
 

@@ -43,7 +43,7 @@ export function MainTabNavigator({
   onLogout,
   onUpdateProfile,
 }: MainTabNavigatorProps) {
-  const { theme, dark: darkMode } = useTheme();
+  const { theme, dark: darkMode, fontScale } = useTheme();
 
   const tabLabels: Record<keyof MainTabParamList, string> = {
     Home: 'Inicio',
@@ -59,6 +59,7 @@ export function MainTabNavigator({
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarLabel: tabLabels[route.name],
+        tabBarAccessibilityLabel: tabLabels[route.name],
         tabBarActiveTintColor: theme.cyan,
         tabBarInactiveTintColor: theme.textMuted,
         tabBarStyle: {
@@ -69,7 +70,7 @@ export function MainTabNavigator({
           height: 70,
         },
         tabBarLabelStyle: {
-          fontSize: 10,
+          fontSize: Math.round(10 * fontScale),
           fontWeight: '600' as const,
           marginTop: 2,
         },

@@ -2,7 +2,8 @@
 // Resultado del análisis de visión IA
 
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleProp, ViewStyle, ScrollView, Image } from 'react-native';
+import {View, TextInput, TouchableOpacity, StyleProp, ViewStyle, ScrollView, Image} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import { formatCOP } from '@/utils/formatters';
 import { getDefaultHours, getExpectedWatts } from '@/data/appliances';
 import { useTheme } from '@/styles/theme';
@@ -52,7 +53,7 @@ export const VisionResult = ({
     >
       {/* Header */}
       <View style={{ flexDirection: 'row', alignItems: 'center', padding: 16 }}>
-        <TouchableOpacity onPress={onBack} style={{ padding: 8 }}>
+        <TouchableOpacity onPress={onBack} accessibilityRole="button" accessibilityLabel="Volver" style={{ padding: 8 }}>
           <Icon name="arrowLeft" size={20} color={theme.cyan} />
         </TouchableOpacity>
         <Text style={{ fontSize: 18, fontWeight: '700', color: theme.text, flex: 1, textAlign: 'center', marginRight: 36 }}>

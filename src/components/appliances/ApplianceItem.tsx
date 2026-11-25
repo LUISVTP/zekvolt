@@ -2,7 +2,8 @@
 // Item individual de electrodoméstico en la lista
 
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
+import {View, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import { formatKwh, formatCOP } from '@/utils/formatters';
 import { useTheme } from '@/styles/theme';
 import Icon from '@/components/icons/Icon';
@@ -54,7 +55,13 @@ export const ApplianceItem = ({ appliance, tariff, onDelete, style }: ApplianceI
             </View>
           </View>
         </View>
-        <TouchableOpacity onPress={onDelete} style={{ padding: 4 }}>
+        <TouchableOpacity
+          onPress={onDelete}
+          accessibilityRole="button"
+          accessibilityLabel={`Eliminar ${appliance.name}`}
+          hitSlop={8}
+          style={{ padding: 4 }}
+        >
           <Icon name="trash" size={16} color={theme.red} />
         </TouchableOpacity>
       </View>

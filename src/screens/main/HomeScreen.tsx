@@ -2,7 +2,8 @@
 // Pantalla principal (Home tab)
 
 import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import {View, ScrollView} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import { useTheme } from '@/styles/theme';
 import {
   ConsumptionCard,

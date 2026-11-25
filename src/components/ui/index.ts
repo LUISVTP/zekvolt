@@ -2,6 +2,7 @@
 // Exportaciones centralizadas de componentes UI
 
 export * from './Button';
+export * from './AppText';
 export * from './Input';
 export * from './Select';
 export * from './Card';

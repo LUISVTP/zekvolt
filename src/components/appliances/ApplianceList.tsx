@@ -2,7 +2,8 @@
 // Lista de electrodomésticos
 
 import React from 'react';
-import { View, Text, StyleProp, ViewStyle } from 'react-native';
+import {View, StyleProp, ViewStyle} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import { useTheme } from '@/styles/theme';
 import { ApplianceItem } from './ApplianceItem';
 import type { ApplianceWithComputed } from '@/types';

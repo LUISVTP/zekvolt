@@ -2,7 +2,8 @@
 // Componente de consejos de ahorro energético
 
 import React from 'react';
-import { View, Text, StyleProp, ViewStyle } from 'react-native';
+import {View, StyleProp, ViewStyle} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import { getTipsForAppliance } from '@/data/tips';
 import Icon from '@/components/icons/Icon';
 import { useTheme } from '@/styles/theme';

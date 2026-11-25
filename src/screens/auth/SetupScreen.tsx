@@ -1,9 +1,10 @@
 // ─── src/screens/auth/SetupScreen.tsx ────────────────────────────────────
 // Pantalla de configuración inicial (onboarding)
 
-import { showAppAlert } from '@/components/ui/AppAlert';
+import {showAppAlert } from '@/components/ui/AppAlert';
 import React, { useState } from 'react';
-import { View, Text, ScrollView, KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
+import { View, ScrollView, KeyboardAvoidingView, Platform, TouchableOpacity} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import { useTheme } from '@/styles/theme';
 import { Button, Select } from '@/components/ui';
 import Icon from '@/components/icons/Icon';

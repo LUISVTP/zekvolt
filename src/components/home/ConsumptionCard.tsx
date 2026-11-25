@@ -2,7 +2,8 @@
 // Tarjeta principal de consumo en Home
 
 import React from 'react';
-import { View, Text, StyleProp, ViewStyle } from 'react-native';
+import {View, StyleProp, ViewStyle} from 'react-native';
+import { Text } from '@/components/ui/AppText';
 import { formatCOP, formatKwh } from '@/utils/formatters';
 import { useTheme } from '@/styles/theme';
 
