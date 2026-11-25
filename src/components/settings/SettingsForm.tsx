@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, StyleProp, ViewStyle, ScrollView, KeyboardAvoidingView, Platform, Modal} from 'react-native';
 import { Text } from '@/components/ui/AppText';
 import { useTheme, FONT_SCALE_OPTIONS } from '@/styles/theme';
+import { useTutorial } from '@/components/tutorial/TutorialOverlay';
 import { Button, Input, Select } from '@/components/ui';
 import { getDepartmentOptions, getStratumOptions, getCompanyOptions } from '@/data/companies';
 import { getTariffForStratum, formatCOP } from '@/data/tariffs';
@@ -34,6 +35,7 @@ export const SettingsForm = ({
   style,
 }: SettingsFormProps) => {
   const { theme, fontScale, setFontScale, highContrast, setHighContrast } = useTheme();
+  const { openTutorial } = useTutorial();
 
   const [editCity, setEditCity] = useState(profile.city);
   const [editEstrato, setEditEstrato] = useState(String(profile.estrato));
@@ -429,6 +431,39 @@ export const SettingsForm = ({
                 <View>
                   <Text style={{ fontSize: 15, fontWeight: '600', color: theme.red }}>Cerrar sesión</Text>
                   <Text style={{ fontSize: 12, color: theme.textMuted }}>Salir de tu cuenta</Text>
+                </View>
+              </View>
+              <Icon name="chevronRight" size={18} color={theme.textMuted} />
+            </TouchableOpacity>
+          </View>
+
+          {/* Ayuda */}
+          <View style={{ backgroundColor: theme.card, borderWidth: 1, borderColor: theme.border, borderRadius: 16, padding: 20, marginBottom: 24 }}>
+            <Text style={{ fontSize: 16, fontWeight: '700', color: theme.text, marginBottom: 12 }}>
+              Ayuda
+            </Text>
+            <TouchableOpacity
+              onPress={openTutorial}
+              accessibilityRole="button"
+              accessibilityLabel="Ver tutorial de la aplicación"
+              style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 10 }}
+            >
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+                <View
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 20,
+                    backgroundColor: theme.cyanDim,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Icon name="info" size={20} color={theme.cyan} />
+                </View>
+                <View>
+                  <Text style={{ fontSize: 15, fontWeight: '600', color: theme.text }}>Ver tutorial</Text>
+                  <Text style={{ fontSize: 12, color: theme.textMuted }}>Repasa los apartados y funciones</Text>
                 </View>
               </View>
               <Icon name="chevronRight" size={18} color={theme.textMuted} />

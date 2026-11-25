@@ -6,6 +6,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView, StatusBar } from 'react-native';
 import { useTheme } from '@/styles/theme';
+import { useTutorial } from '@/components/tutorial/TutorialOverlay';
 import { getSession, onAuthChange, signOut } from '@/services/auth.service';
 import { getProfile } from '@/services/profile.service';
 import { addAppliance, getAppliances, removeAppliance } from '@/services/appliance.service';
@@ -15,6 +16,7 @@ import MainTabNavigator from './MainTabNavigator';
 
 function RootNavigatorInner() {
   const { dark: darkMode } = useTheme();
+  const { showTutorialIfNeeded } = useTutorial();
 
   const [screen, setScreen] = useState<'splash' | 'auth' | 'main'>('splash');
   const [authInitial, setAuthInitial] = useState<'Login' | 'Setup'>('Login');
@@ -49,6 +51,13 @@ function RootNavigatorInner() {
   }, []);
 
   // Cargar sesión al iniciar
+  // Mostrar el tutorial la primera vez que se entra a la app
+  useEffect(() => {
+    if (screen === 'main') {
+      showTutorialIfNeeded(session?.user.id);
+    }
+  }, [screen, session, showTutorialIfNeeded]);
+
   useEffect(() => {
     let mounted = true;
 
