@@ -9,7 +9,7 @@ import { validateWatts } from '@/utils/validation';
 import { APPLIANCE_CATEGORIES, APPLIANCES_DB, getDefaultHours } from '@/data/appliances';
 import { formatCOP } from '@/utils/formatters';
 import { useTheme } from '@/styles/theme';
-import { Button, Input } from '@/components/ui';
+import { Button, ConfidenceBadge, Input } from '@/components/ui';
 import Icon from '@/components/icons/Icon';
 import { EnergyTips } from '@/components/home/EnergyTips';
 import type { WattValidationResult } from '@/types';
@@ -291,12 +291,12 @@ export const AddApplianceModal = ({
                 <>
                   <Text style={{ color: theme.cyan, fontSize: 14, fontWeight: '600' }}>{modelSearchResult.name}</Text>
                   {modelSearchResult.watts && (
-                    <Text style={{ color: theme.text, fontSize: 18, fontWeight: '800', marginTop: 4 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 4 }}>
+                    <Text style={{ color: theme.text, fontSize: 18, fontWeight: '800' }}>
                       {modelSearchResult.watts}W
-                      <Text style={{ fontSize: 11, fontWeight: '400', color: theme.textMuted }}>
-                        {' '}({modelSearchResult.confidence === 'exact' ? 'EXACTO' : 'ESTIMADO'})
-                      </Text>
                     </Text>
+                    <ConfidenceBadge confidence={modelSearchResult.confidence === 'exact' ? 'exact' : 'estimated'} />
+                  </View>
                   )}
                   <View style={{ flexDirection: 'row', gap: 8, marginTop: 10 }}>
                     <Button onPress={handleApplyModelSearch} style={{ flex: 1, paddingVertical: 8, borderRadius: 8 }}>
@@ -491,12 +491,12 @@ export const AddApplianceModal = ({
             <>
               <Text style={{ color: theme.cyan, fontSize: 14, fontWeight: '600' }}>{modelSearchResult.name}</Text>
               {modelSearchResult.watts && (
-                <Text style={{ color: theme.text, fontSize: 18, fontWeight: '800', marginTop: 4 }}>
-                  {modelSearchResult.watts}W
-                  <Text style={{ fontSize: 11, fontWeight: '400', color: theme.textMuted }}>
-                    {' '}({modelSearchResult.confidence === 'exact' ? 'EXACTO' : 'ESTIMADO'})
-                  </Text>
-                </Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 4 }}>
+                    <Text style={{ color: theme.text, fontSize: 18, fontWeight: '800' }}>
+                      {modelSearchResult.watts}W
+                    </Text>
+                    <ConfidenceBadge confidence={modelSearchResult.confidence === 'exact' ? 'exact' : 'estimated'} />
+                  </View>
               )}
               <View style={{ flexDirection: 'row', gap: 8, marginTop: 10 }}>
                 <Button onPress={handleApplyModelSearch} style={{ flex: 1, paddingVertical: 8, borderRadius: 8 }}>

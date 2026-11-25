@@ -7,7 +7,7 @@ import { Text } from '@/components/ui/AppText';
 import { formatCOP } from '@/utils/formatters';
 import { getDefaultHours, getExpectedWatts } from '@/data/appliances';
 import { useTheme } from '@/styles/theme';
-import { Button } from '@/components/ui';
+import { Button, ConfidenceBadge } from '@/components/ui';
 import Icon from '@/components/icons/Icon';
 import type { VisionResult as VisionResultData } from '@/types';
 
@@ -143,35 +143,8 @@ export const VisionResult = ({
                 </Text>
               )}
 
-              {/* Badge de confianza */}
-              {result.confidence === 'exact' && (
-                <View
-                  style={{
-                    backgroundColor: `${theme.green}22`,
-                    borderWidth: 1,
-                    borderColor: `${theme.green}66`,
-                    borderRadius: 8,
-                    paddingHorizontal: 8,
-                    paddingVertical: 3,
-                  }}
-                >
-                  <Text style={{ color: theme.green, fontSize: 10, fontWeight: '700' }}>EXACTO</Text>
-                </View>
-              )}
-              {isEstimated && (
-                <View
-                  style={{
-                    backgroundColor: theme.goldDim,
-                    borderWidth: 1,
-                    borderColor: `${theme.gold}66`,
-                    borderRadius: 8,
-                    paddingHorizontal: 8,
-                    paddingVertical: 3,
-                  }}
-                >
-                  <Text style={{ color: theme.gold, fontSize: 10, fontWeight: '700' }}>ESTIMADO</Text>
-                </View>
-              )}
+              {/* Badge de confianza con icono y texto */}
+              <ConfidenceBadge confidence={result.confidence} />
             </View>
 
             {isEstimated && (

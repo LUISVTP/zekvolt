@@ -1,15 +1,15 @@
 // ─── src/screens/main/HomeScreen.tsx ──────────────────────────────────────
 // Pantalla principal (Home tab)
 
-import React from 'react';
+import React, { useState } from 'react';
 import {View, ScrollView} from 'react-native';
 import { Text } from '@/components/ui/AppText';
 import { useTheme } from '@/styles/theme';
 import {
   ConsumptionCard,
+  ConsumptionCharts,
   TopConsumers,
   ProfilePills,
-  EnergyTips,
 } from '@/components/home';
 import { ZekvoltLogo } from '@/components/logo/ZekvoltLogo';
 import type { ApplianceWithComputed } from '@/types';
@@ -27,6 +27,7 @@ interface HomeScreenProps {
 
 export default function HomeScreen({ profile, appliances }: HomeScreenProps) {
   const { theme } = useTheme();
+  const [showCharts, setShowCharts] = useState(false);
 
   // Enriquecer electrodomésticos con datos del catálogo
   const enrichedAppliances: ApplianceWithComputed[] = appliances.map(enrichAppliance);
@@ -68,12 +69,21 @@ export default function HomeScreen({ profile, appliances }: HomeScreenProps) {
           company={profile.company}
         />
 
-        {/* Top consumidores */}
+        {/* Top consumidores con acceso a las gráficas */}
         <TopConsumers
           appliances={enrichedAppliances}
           totalKwh={totalKwh}
+          onOpenCharts={() => setShowCharts(true)}
         />
       </ScrollView>
+
+      <ConsumptionCharts
+        visible={showCharts}
+        onClose={() => setShowCharts(false)}
+        appliances={enrichedAppliances}
+        totalKwh={totalKwh}
+        estimatedBill={estimatedBill}
+      />
     </View>
   );
 }

@@ -2,8 +2,9 @@
 // Lista de top consumidores en Home
 
 import React from 'react';
-import {View, StyleProp, ViewStyle} from 'react-native';
+import {TouchableOpacity, View, StyleProp, ViewStyle} from 'react-native';
 import { Text } from '@/components/ui/AppText';
+import Icon from '@/components/icons/Icon';
 import { formatKwh, formatCOP } from '@/utils/formatters';
 import { useTheme } from '@/styles/theme';
 import type { ApplianceWithComputed } from '@/types';
@@ -11,10 +12,11 @@ import type { ApplianceWithComputed } from '@/types';
 interface TopConsumersProps {
   appliances: ApplianceWithComputed[];
   totalKwh: number;
+  onOpenCharts?: () => void;
   style?: StyleProp<ViewStyle>;
 }
 
-export const TopConsumers = ({ appliances, totalKwh, style }: TopConsumersProps) => {
+export const TopConsumers = ({ appliances, totalKwh, onOpenCharts, style }: TopConsumersProps) => {
   const { theme } = useTheme();
 
   const top = [...appliances]
@@ -49,9 +51,40 @@ export const TopConsumers = ({ appliances, totalKwh, style }: TopConsumersProps)
 
   return (
     <View style={style}>
-      <Text style={{ fontSize: 14, fontWeight: '700', color: theme.text, marginBottom: 12 }}>
-        Top consumidores
-      </Text>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 12,
+        }}
+      >
+        <Text style={{ fontSize: 14, fontWeight: '700', color: theme.text }}>
+          Top consumidores
+        </Text>
+        {onOpenCharts && (
+          <TouchableOpacity
+            onPress={onOpenCharts}
+            accessibilityRole="button"
+            accessibilityLabel="Ver gráficas de consumo"
+            hitSlop={8}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 6,
+              borderWidth: 1,
+              borderColor: theme.cyanMid,
+              backgroundColor: theme.cyanDim,
+              borderRadius: 10,
+              paddingHorizontal: 10,
+              paddingVertical: 6,
+            }}
+          >
+            <Icon name="activity" size={14} color={theme.cyan} />
+            <Text style={{ fontSize: 12, fontWeight: '700', color: theme.cyan }}>Ver gráficas</Text>
+          </TouchableOpacity>
+        )}
+      </View>
       {top.map((a, i) => {
         const pct = totalKwh > 0 ? (a.monthlyKwh / totalKwh) * 100 : 0;
         return (
@@ -74,6 +107,21 @@ export const TopConsumers = ({ appliances, totalKwh, style }: TopConsumersProps)
                   <Text style={{ fontSize: 11, color: theme.textMuted }}>
                     {a.hours}h/día × {a.qty} unid.
                   </Text>
+                  {i === 0 && (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 3,
+                        marginTop: 3,
+                      }}
+                    >
+                      <Icon name="bolt" size={11} color={theme.gold} />
+                      <Text style={{ fontSize: 10, fontWeight: '700', color: theme.gold }}>
+                        Mayor consumo
+                      </Text>
+                    </View>
+                  )}
                 </View>
               </View>
               <View style={{ alignItems: 'flex-end' }}>
@@ -100,7 +148,5 @@ export const TopConsumers = ({ appliances, totalKwh, style }: TopConsumersProps)
   );
 };
 
-// Importar Icon aquí para evitar error
-import Icon from '@/components/icons/Icon';
 
 export default TopConsumers;
