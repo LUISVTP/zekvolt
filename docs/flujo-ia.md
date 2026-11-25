@@ -2,7 +2,7 @@
 
 Zekvolt identifica electrodomésticos y lee su potencia a partir de una foto o
 de una búsqueda por texto, usando NVIDIA NIM con el modelo
-`meta/llama-3.2-11b-vision-instruct`.
+`nvidia/nemotron-3.5-super-vl-120b-a12b`.
 
 ## Capas del flujo
 
@@ -16,7 +16,7 @@ vision.service.ts   ── orquesta, valida watts contra el catálogo
 lib/nvidia.ts       ── cliente HTTP, prompts, timeout, reintentos
         │
         ▼
-NVIDIA NIM API      ── meta/llama-3.2-11b-vision-instruct
+NVIDIA NIM API      ── nvidia/nemotron-3.5-super-vl-120b-a12b
 ```
 
 ## Cliente (`src/lib/nvidia.ts`)

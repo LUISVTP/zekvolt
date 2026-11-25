@@ -47,7 +47,7 @@ almacena en la tabla. Por eso `supabase/schema.sql` no incluye esa columna. Ver
 ## Diferencias informe vs. código
 
 - **Proveedor de IA**: el informe y el código actual usan NVIDIA NIM
-  (`meta/llama-3.2-11b-vision-instruct`). Versiones anteriores usaban Gemini;
+  (`nvidia/nemotron-3.5-super-vl-120b-a12b`). Versiones anteriores usaban Gemini;
   la migración a NVIDIA NIM ya está aplicada en el código.
 - **Estructura de archivos**: el informe describe `src/theme/theme.js` y módulos
   `lib/*.js`. El rediseño introduce `src/styles/`, `src/services/`,

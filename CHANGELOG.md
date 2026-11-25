@@ -19,7 +19,7 @@ en la release `0.2.0_apk` del repositorio original.
 - La configuración sensible ahora se carga desde variables de entorno
   (`EXPO_PUBLIC_*`) en lugar de estar hardcodeada.
 - Migrada la visión por IA de Gemini a NVIDIA NIM
-  (`meta/llama-3.2-11b-vision-instruct`).
+  (`nvidia/nemotron-3.5-super-vl-120b-a12b`).
 - Cliente de Supabase inicializado de forma perezosa (`getSupabaseClient`).
 
 ### Añadido

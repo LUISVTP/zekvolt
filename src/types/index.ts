@@ -168,6 +168,7 @@ export interface AppConfig {
   nvidia: {
     apiKey: string;
     model: string;
+    textModel: string;
     baseUrl: string;
     timeoutMs: number;
   };

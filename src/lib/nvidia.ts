@@ -1,11 +1,11 @@
 // ─── src/lib/nvidia.ts ───────────────────────────────────────────────
-// Cliente para NVIDIA NIM API (Visión IA - LLaMA 3.2 Vision)
+// Cliente para NVIDIA NIM API (Visión IA - Nemotron 3.5 Super VL)
 
 import { env } from '@/config/env';
 import type { VisionResult, ModelLookupResult } from '@/types';
 import { ZekvoltError } from '@/types';
 
-const { apiKey, model, baseUrl, timeoutMs } = env.nvidia;
+const { apiKey, model, textModel, baseUrl, timeoutMs } = env.nvidia;
 
 interface NvidiaMessage {
   role: 'system' | 'user' | 'assistant';
@@ -184,7 +184,7 @@ Si no encuentras nada:
 // ─── Funciones Públicas ───────────────────────────────────────────────
 
 /**
- * Analiza una imagen de electrodoméstico usando NVIDIA NIM + LLaMA 3.2 Vision
+ * Analiza una imagen de electrodoméstico usando NVIDIA NIM + Nemotron 3.5 Super VL
  */
 export async function analyzeApplianceImage(
   imageBase64: string,
@@ -205,11 +205,14 @@ export async function analyzeApplianceImage(
       },
     ],
     temperature: 0.1,
-    max_tokens: 1024,
+    max_tokens: 3072,
   };
 
   const data = await callNvidiaAPI(body);
   const text = data.choices?.[0]?.message?.content ?? '';
+  if (!text.trim()) {
+    throw new ZekvoltError('AI_EMPTY_RESPONSE', 'El modelo no devolvió respuesta. Intenta de nuevo o con otra foto.');
+  }
   const parsed = parseVisionResponse(text);
 
   if (!parsed) {
@@ -230,14 +233,17 @@ export async function lookupModelByText(modelText: string): Promise<ModelLookupR
   const prompt = MODEL_LOOKUP_PROMPT.replace('{modelText}', modelText.trim());
 
   const body: NvidiaRequest = {
-    model,
+    model: textModel,
     messages: [{ role: 'user', content: prompt }],
     temperature: 0.1,
-    max_tokens: 1024,
+    max_tokens: 3072,
   };
 
   const data = await callNvidiaAPI(body);
   const text = data.choices?.[0]?.message?.content ?? '';
+  if (!text.trim()) {
+    throw new ZekvoltError('AI_EMPTY_RESPONSE', 'El modelo no devolvió respuesta. Intenta de nuevo o con otra foto.');
+  }
   const parsed = parseVisionResponse(text);
 
   if (!parsed) {

@@ -15,7 +15,8 @@ export const env: AppConfig = {
   },
   nvidia: {
     apiKey: getEnv('EXPO_PUBLIC_NVIDIA_API_KEY'),
-    model: getEnv('EXPO_PUBLIC_NVIDIA_MODEL', 'meta/llama-3.2-11b-vision-instruct'),
+    model: getEnv('EXPO_PUBLIC_NVIDIA_MODEL', 'nvidia/nemotron-3.5-super-vl-120b-a12b'),
+    textModel: getEnv('EXPO_PUBLIC_NVIDIA_TEXT_MODEL', 'nvidia/nemotron-3.5-bolt-e4b'),
     baseUrl: getEnv('EXPO_PUBLIC_NVIDIA_BASE_URL', 'https://integrate.api.nvidia.com/v1'),
     timeoutMs: parseInt(getEnv('EXPO_PUBLIC_NVIDIA_TIMEOUT_MS', '30000'), 10),
   },

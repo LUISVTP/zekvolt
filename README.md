@@ -10,7 +10,7 @@ aporta recomendaciones de ahorro.
 
 - **Stack**: React Native 0.83 · Expo SDK 55 · TypeScript estricto
 - **Backend**: Supabase (autenticación + PostgreSQL con Row Level Security)
-- **Visión IA**: NVIDIA NIM · `meta/llama-3.2-11b-vision-instruct`
+- **Visión IA**: NVIDIA NIM · `nvidia/nemotron-3.5-super-vl-120b-a12b`
 - **Licencia**: MIT
 
 ## Características
